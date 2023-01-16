@@ -20,7 +20,21 @@ let lock = false;
 const guessArr =[];
 const word = ['M','I','K','K','O'];
 
+
 // define current guess
+
+// 
+// HELPER FUNCTIONS
+hasClass = function( strLetter , strClass ) {
+    if( !document.getElementById(`btn${strLetter}`).classList.contains(strClass)) {
+        document.getElementById(`btn${strLetter}`).classList.add(strClass);
+    }
+}
+
+function hasClass(element, className) {
+    
+    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+}
 
 /*
     CHECK THE VALUES
@@ -29,24 +43,29 @@ const checkValues = function( valuesArr ) {
     
     //console.log( '1. ' + valuesArr);
     let allCorrect = 0;
+    let letter;
    
     for( let x = 0; x < valuesArr.length; x++ ) {
         
         //console.log( '2. ' + valuesArr );
-       
+        letter = valuesArr[x];
+        console.log(letter);
         //if letter is correct
         if( valuesArr[x] === word[x] )
         {
             document.getElementById(`l${line}--${x}`).classList.add('correct');
+            hasClass(letter, 'correct');
             allCorrect++;
         // if not correct, but letter is in word
         } else if ( word.includes(valuesArr[x]) ) {
 
-            document.getElementById(`l${line}--${x}`).classList.add('near');
+           document.getElementById(`l${line}--${x}`).classList.add('near');
+           hasClass(letter, 'near');
         
         // letter is wrong and not in the word
         } else {
             document.getElementById(`l${line}--${x}`).classList.add('wrong');
+            hasClass(letter, 'wrong');
         }
     }
     console.log(allCorrect);
@@ -67,12 +86,12 @@ for( let i = 0; i < btnPress.length; i++ ) {
             const letter = btnPress[i].innerHTML;
             // if DELETE button has pressed
             // clear up last letter + reduce the index
-            if( btnPress[i].id == 'butDel') {
+            if( btnPress[i].id == 'btnDel') {
                 index--;
                 document.getElementById(`l${line}--${index}`).innerHTML = '';
 
             // if ENTER button has pressed
-            } else if (btnPress[i].id == 'butEnter' ) {
+            } else if (btnPress[i].id == 'btnEnter' ) {
                 
                 if( index < 4 ) {
                     alert('Täytä kaikki kirjaimet');

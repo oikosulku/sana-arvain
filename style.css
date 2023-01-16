@@ -56,24 +56,7 @@ h1 {
 }
 
 
-/*
-    styles for guesses
-*/
 
-.correct {
-    background-color: #8EFA87;
-    border: 1px solid #8EFA87;
-}
-
-.wrong {
-    background-color: #c2c1c0;
-    border: 1px solid #c2c1c0;
-}
-
-.near {
-    background-color: #F3FA87;
-    border: 1px solid #F3FA87;
-}
 
 
 /* 
@@ -110,4 +93,20 @@ h1 {
     margin: 2px 1px;
     font-size: 2em;
     padding: 0.1em;
+}
+
+/*
+    styles for guesses
+*/
+
+.correct {
+    background-color: #8EFA87;
+}
+
+.wrong {
+    background-color: #c2c1c0;
+}
+
+.near {
+    background-color: #F3FA87;
 }
