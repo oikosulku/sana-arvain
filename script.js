@@ -301,7 +301,7 @@ for( let i = 0; i < btnPress.length; i++ ) {
                                     msg = 'viidennellä';
                                     break;
                                 case 5:
-                                    msg = 'viidennellä';
+                                    msg = 'kuudennella';
                                     break;
                             }   
 
