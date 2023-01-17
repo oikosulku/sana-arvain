@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="reset.css" />  
     <link rel="stylesheet" href="style.css" />
 
+    <script type="text/javascript" src="/words.js"></script> 
+
   </head>
   <body>
 
@@ -71,20 +73,27 @@
 
     </div>
 
+    <!-- Show New Game button -->
+    <div class="wrap hidden" id="new--game">
+        <div id="new-game">UUSI SANA</div>
+    </div>
+    
+    <!-- keyboard -->
+
     <div id="container-keyboard">
 
             <div class="firstLine">
                 <div id="btnQ" class="letter">Q</div>
                 <div id="btnW" class="letter">W</div>
                 <div id="btnE" class="letter">E</div>
-                <div id="btnE" class="letter">R</div>
-                <div id="btnR" class="letter">T</div>
+                <div id="btnR" class="letter">R</div>
+                <div id="btnT" class="letter">T</div>
                 <div id="btnY" class="letter">Y</div>
                 <div id="btnU" class="letter">U</div>
                 <div id="btnI" class="letter">I</div>
                 <div id="btnO" class="letter">O</div>
                 <div id="btnP" class="letter">P</div>
-                <div id="btnSO" class="letter">Å</div>
+                <div id="btnÅ" class="letter">Å</div>
             </div>
 
             <div class="firstLine">
@@ -97,27 +106,56 @@
                 <div id="btnJ" class="letter">J</div>
                 <div id="btnK" class="letter">K</div>
                 <div id="btnL" class="letter">L</div>
-                <div id="btnOO" class="letter">Ö</div>
-                <div id="btnAA" class="letter">Ä</div>
+                <div id="btnÖ" class="letter">Ö</div>
+                <div id="btnÄ" class="letter">Ä</div>
             </div>
 
             <div class="firstLine">
-                <div class="hidden"></div>
+                <div class="hiddenLetter"></div>
                 <div id="btnDel" class="letter">&#x2B05;</div>
                 <div id="btnZ" class="letter">Z</div>
                 <div id="btnX" class="letter">X</div>
-                <div id="btC" class="letter">C</div>
+                <div id="btnC" class="letter">C</div>
                 <div id="btnV" class="letter">V</div>
                 <div id="btnB" class="letter">B</div>
                 <div id="btnN" class="letter">N</div>
                 <div id="btnM" class="letter">M</div>
                 <div id="btnEnter" class="letter">&#9166;</div>
-                <div class="hidden"></div>
+                <div class="hiddenLetter"></div>
             </div>
 
-
-
     </div>
+
+    <!-- end of keyboard -->
+
+    <!--- modal windows -->
+
+    <div class="modal hidden" id="modShort">
+        <button class="close-modal" id="modShortClose">&times;</button>
+        <p>
+          Sana on liian lyhyt
+        </p>
+    </div>
+
+    <div class="modal hidden" id="modNotword">
+        <button class="close-modal" id="modNotwordClose">&times;</button>
+        <p>
+          Sanaa ei ole olemassa
+        </p>
+    </div>
+
+    <div class="modal hidden" id="modCorrect">
+        <button class="close-modal" id="modCorrectClose">&times;</button>
+        <p>
+          Arvasit sanan oikein <span id="count"></span> arvauksella.
+        </p>
+    </div>
+     
+     
+     <div class="overlay hidden"></div>
+
+
+      <!-- end of modals -->
 
     <script src="script.js"></script>
   </body>

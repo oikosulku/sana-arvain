@@ -5,36 +5,132 @@
 
 /**
  * TODO
- * - style the keyboard bss the answers
- * - check the logic of words
- * - 
+ * - style the keyboard bss the answers -OK
+ * - get random word - OK
+ * - check if there is exist such a word - OK
+ * - !!! get more extensive word list
+ *      https://api.finto.fi/
+ *      https://finto.fi/ysa/fi/
+ * - replace alert boxes with modal windows
+ *      - it's not words
+ *      - type all the letters
+ *      - correct answer
  */
 
 // SET UP THE START
 
 // get the Buttons
 const btnPress = document.querySelectorAll('.letter');
-let index = 0;
-let line = 0
-let lock = false;
-const guessArr =[];
-const word = ['M','I','K','K','O'];
+const btnCloseModShort = document.getElementById('modShortClose');
+const btnCloseModNotword = document.getElementById('modNotwordClose');
+const btnCloseModCorrect = document.getElementById('modCorrectClose');
+const btnNewGame = document.getElementById('new-game');
+const alphabets = [
+    "A","B","C","D","E","F","G",
+    "H", "I", "J", "K", "L", "M", "N",
+    "O", "P", "Q", "R", "S", "T", "U",
+    "W", "V", "X", "Y", "Z", "Å", "Ä", "Ö"
+]
 
+let index, line, lock, guessArr, randomNum, word;
 
-// define current guess
+// INIT THE VARIABLES
+function init() {
+    
+    index = 0;
+    line = 0;
+    lock = false;
+    guessArr =[];
+
+    // get the random word
+    randomNum = Math.trunc( Math.random() * words.length) + 1;
+    word = words[randomNum].split("");
+
+    console.log(word);
+}
+
+init();
 
 // 
 // HELPER FUNCTIONS
+
+// check if class exists in "keyboard" 
+// add class if not
+// otherwise ignore
 hasClass = function( strLetter , strClass ) {
     if( !document.getElementById(`btn${strLetter}`).classList.contains(strClass)) {
         document.getElementById(`btn${strLetter}`).classList.add(strClass);
     }
 }
 
-function hasClass(element, className) {
-    
-    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+toggleModal = function( modalName ) {
+    document.getElementById(modalName).classList.toggle('hidden');
+    document.querySelector('.overlay').classList.toggle('hidden');
 }
+
+// MODAL - word is too short
+closeModalShort = function() {
+    document.getElementById('modShort').classList.add('hidden');
+    document.querySelector('.overlay').classList.add('hidden');
+}
+
+btnCloseModShort.addEventListener('click', closeModalShort );
+
+// MODAL - guess is not a real word
+closeModalNotword = function() {
+    document.getElementById('modNotword').classList.add('hidden');
+    document.querySelector('.overlay').classList.add('hidden');
+}
+
+btnCloseModNotword.addEventListener('click', closeModalNotword );
+
+
+// MODAL - word is correct
+closeModalCorrect = function() {
+    document.getElementById('modCorrect').classList.add('hidden');
+    document.querySelector('.overlay').classList.add('hidden');
+    document.getElementById('new--game').classList.remove('hidden');
+}
+
+btnCloseModCorrect.addEventListener('click', closeModalCorrect );
+
+removeClass = function( classID, classToRemove ) {
+    if( document.getElementById(classID).classList.contains(classToRemove)) {
+        document.getElementById( classID ).classList.remove(classToRemove);
+    }
+}
+
+resetGame = function() {
+    document.getElementById('new--game').classList.add('hidden');
+
+    // CLEAR ALL THE FORMATS AND ANSWERS 
+
+    // iterate lines
+    for( let i = 0; i < 6; i++ ) {
+        // iterate row
+        for(let x = 0; x < 5; x++ ) {
+            console.log(`l${i}--${x}`);
+            // CLEAR THE CLASSES
+            removeClass( `l${i}--${x}` , 'correct');
+            removeClass( `l${i}--${x}` , 'near');
+            removeClass( `l${i}--${x}` , 'wrong');
+            // CLEAR THE CONTENT
+            document.getElementById(`l${i}--${x}`).innerHTML = '';
+        }
+    }
+
+    // CLEAR THE KEYBOARD
+    for( let y = 0; y < alphabets.length; y++ ) {
+        console.log(`btn${alphabets[y]}`);
+        removeClass(`btn${alphabets[y]}`, 'correct' );
+        removeClass(`btn${alphabets[y]}`, 'near' );
+        removeClass(`btn${alphabets[y]}`, 'wrong' );
+    }
+
+    init();
+}
+
+btnNewGame.addEventListener('click', resetGame );
 
 /*
     CHECK THE VALUES
@@ -47,17 +143,17 @@ const checkValues = function( valuesArr ) {
    
     for( let x = 0; x < valuesArr.length; x++ ) {
         
-        //console.log( '2. ' + valuesArr );
         letter = valuesArr[x];
         console.log(letter);
         //if letter is correct
-        if( valuesArr[x] === word[x] )
+        if( letter === word[x] )
         {
             document.getElementById(`l${line}--${x}`).classList.add('correct');
             hasClass(letter, 'correct');
             allCorrect++;
+
         // if not correct, but letter is in word
-        } else if ( word.includes(valuesArr[x]) ) {
+        } else if ( word.includes(letter) ) {
 
            document.getElementById(`l${line}--${x}`).classList.add('near');
            hasClass(letter, 'near');
@@ -78,43 +174,93 @@ const checkValues = function( valuesArr ) {
 // generate functionality for each keypress
 for( let i = 0; i < btnPress.length; i++ ) {
 
+    
     // click listeners
     btnPress[i].addEventListener('click' , function() {
        
         if( !lock ) {
             // get the letter
             const letter = btnPress[i].innerHTML;
+            
             // if DELETE button has pressed
             // clear up last letter + reduce the index
             if( btnPress[i].id == 'btnDel') {
-                index--;
-                document.getElementById(`l${line}--${index}`).innerHTML = '';
-
+                
+                if(index > 0 ) {
+                    index--;
+                    document.getElementById(`l${line}--${index}`).innerHTML = '';
+                }
+                
+            //
             // if ENTER button has pressed
             } else if (btnPress[i].id == 'btnEnter' ) {
                 
+                // check if all letter filled up
+                // some letters still missing..
                 if( index < 4 ) {
-                    alert('Täytä kaikki kirjaimet');
+                    
+                    toggleModal('modShort');
+                
+                // All the letters filled up
                 } else {
                     //console.log('0.' + guessArr);
-                    correctWord = checkValues(guessArr);
-                    // set the next line + rest the index
-                    if(checkValues(guessArr) ) {
-                        alert('Kaikki oikein');
-                        lock = true;
-                    } else {
-                        if( line == 5 ) {
+                    
+                    // Check if we have a correct word
+                    //
+                    let wordString = guessArr.join('');
+                    console.log(words.includes(wordString));
+                    if(words.includes(wordString)) 
+                    {
+                        correctWord = checkValues(guessArr);
+                        // set the next line + rest the index
+                        if(checkValues(guessArr) ) {
+                
                             lock = true;
-                            alert('Ohi on.');
-                        } else {
-                            line++;
-                            index = 0;
-                        }
-                    }
+                            let msg = '';
 
+                            // get the correct msg
+                            switch(line) {
+                                case 0:
+                                    msg = 'ensimmäisellä';
+                                    break;
+                                case 1:
+                                    msg = 'toisella';
+                                    break;
+                                case 2:
+                                    msg = 'kolmannella';
+                                    break;
+                                case 3:
+                                    msg = 'neljännellä';
+                                    break;
+                                case 4:
+                                    msg = 'viidennellä';
+                                    break;
+                                case 5:
+                                    msg = 'viidennellä';
+                                    break;
+                            }   
+
+                            document.getElementById(`count`).innerHTML = msg;
+                            toggleModal('modCorrect');
+
+                        } else {
+                            if( line == 5 ) {
+                                lock = true;
+                                alert('Ohi on.');
+                            } else {
+                                line++;
+                                index = 0;
+                            }
+                        }
+
+                    // It's not a real word
+                    } else {
+                        toggleModal('modNotword');
+                    }
                 }
             
-            // Else it is letter
+            //
+            // Any of Letter buttons pressed
             } else {
 
                 // check if still letter left 
