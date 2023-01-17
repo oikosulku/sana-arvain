@@ -7,7 +7,7 @@
 
 /*
  * TODO
- * - Game lose modal
+ * - Game lose modal - OK
  * - Animations for boxes
  * - imporove styling
  * - improve won game modal
@@ -22,6 +22,7 @@ const btnPress = document.querySelectorAll('.letter');
 const btnCloseModShort = document.getElementById('modShortClose');
 const btnCloseModNotword = document.getElementById('modNotwordClose');
 const btnCloseModCorrect = document.getElementById('modCorrectClose');
+const btnCloseModLose= document.getElementById('modLoseClose');
 const btnNewGame = document.getElementById('new-game');
 const alphabets = [
     "A","B","C","D","E","F","G",
@@ -31,6 +32,7 @@ const alphabets = [
 ]
 
 let index, line, lock, guessArr, randomNum, word;
+
 
 // INIT THE VARIABLES
 function init() {
@@ -44,7 +46,10 @@ function init() {
     randomNum = Math.trunc( Math.random() * words.length) + 1;
     word = words[randomNum].split("");
 
-    console.log(word);
+    // DEBUG WORD
+    //word = ["K","A","A","T","O"];
+    // This is random word
+    // console.log(word);
 }
 
 init();
@@ -56,9 +61,20 @@ init();
 // add class if not
 // otherwise ignore
 hasClass = function( strLetter , strClass ) {
-    if( !document.getElementById(`btn${strLetter}`).classList.contains(strClass)) {
-        document.getElementById(`btn${strLetter}`).classList.add(strClass);
+
+    // if btn allready correct - then DO NOTHING
+    if( !document.getElementById(`btn${strLetter}`).classList.contains('correct') ) {
+        
+        // NEAR class need to remove if we are about to add 'correct' class
+        if(document.getElementById(`btn${strLetter}`).classList.contains('near') && strClass == 'correct' ){
+            document.getElementById(`btn${strLetter}`).classList.remove('near');
+        }
+        if( !document.getElementById(`btn${strLetter}`).classList.contains(strClass)) {
+            document.getElementById(`btn${strLetter}`).classList.add(strClass);
+        }
     }
+
+
 }
 
 toggleModal = function( modalName ) {
@@ -82,6 +98,14 @@ closeModalNotword = function() {
 
 btnCloseModNotword.addEventListener('click', closeModalNotword );
 
+// MODAL - game loss
+closeModalLose = function() {
+    document.getElementById('modLose').classList.add('hidden');
+    document.querySelector('.overlay').classList.add('hidden');
+    document.getElementById('new--game').classList.remove('hidden');
+}
+
+btnCloseModLose.addEventListener('click', closeModalLose);
 
 // MODAL - word is correct
 closeModalCorrect = function() {
@@ -102,7 +126,6 @@ resetGame = function() {
     document.getElementById('new--game').classList.add('hidden');
 
     // CLEAR ALL THE FORMATS AND ANSWERS 
-
     // iterate lines
     for( let i = 0; i < 6; i++ ) {
         // iterate row
@@ -137,34 +160,78 @@ const checkValues = function( valuesArr ) {
     
     //console.log( '1. ' + valuesArr);
     let allCorrect = 0;
+    let helperArray = [];
     let letter;
-   
-    for( let x = 0; x < valuesArr.length; x++ ) {
-        
-        letter = valuesArr[x];
-        console.log(letter);
-        //if letter is correct
-        if( letter === word[x] )
+
+     // Count each letter
+    const counts = word.reduce((acc, curr) => (acc[curr] = (acc[curr] || 0) + 1, acc), {});
+
+    // CHECK THE CORRECT VALUES
+    for( let i = 0; i < valuesArr.length; i++ ) {
+        if( valuesArr[i] === word[i] )
         {
-            document.getElementById(`l${line}--${x}`).classList.add('correct');
-            hasClass(letter, 'correct');
+            // mark guess and btn green
+            document.getElementById(`l${line}--${i}`).classList.add('correct');
+            hasClass(valuesArr[i], 'correct');
             allCorrect++;
+            
+            // reduce letter count
+            counts[valuesArr[i]]--;
 
-        // if not correct, but letter is in word
-        } else if ( word.includes(letter) ) {
+            // change value OK - ie. no need action in near & wrong loop...
+            valuesArr[i] = 'OK';
+            
+        }  else {
 
-           document.getElementById(`l${line}--${x}`).classList.add('near');
-           hasClass(letter, 'near');
-        
-        // letter is wrong and not in the word
-        } else {
-            document.getElementById(`l${line}--${x}`).classList.add('wrong');
-            hasClass(letter, 'wrong');
+            // add remaining value to helper array
+            helperArray.push(valuesArr[i]);
         }
     }
-    console.log(allCorrect);
+  
+    
+    // If all correct this can be skipped
+    if( allCorrect < 5 ) {
+    
+        //
+        // CHECK NEAR AND WRONG ONES
+        for( let x = 0; x < valuesArr.length; x++ ) {
+            
+            letter = valuesArr[x];
+            
+            // if letter allready correct and used
+            // skip and go to next
+            if( letter != 'OK' ) {
+                
+                console.log(letter);
+
+                        // if not correct, but letter is in word
+                if ( helperArray.includes(letter) ) {
+            
+                    if(counts[letter] > 0 ) {
+                        //console.log(x, letter)
+                        document.getElementById(`l${line}--${x}`).classList.add('near');
+                        hasClass(letter, 'near');
+                        counts[letter]--;
+                    } else {
+                        document.getElementById(`l${line}--${x}`).classList.add('wrong');
+                        hasClass(letter, 'wrong');
+                    }
+        
+        
+                // letter is wrong and not in the word
+                } else {
+                    document.getElementById(`l${line}--${x}`).classList.add('wrong');
+                    hasClass(letter, 'wrong');
+                }
+            }
+        }
+    }
+
+    //console.log(counts);
     return allCorrect == 5 ? true : false;
 }
+
+
 /*
     KEYBOARD LISTENER
 */
@@ -199,19 +266,19 @@ for( let i = 0; i < btnPress.length; i++ ) {
                     
                     toggleModal('modShort');
                 
+                //
                 // All the letters filled up
                 } else {
-                    //console.log('0.' + guessArr);
-                    
-                    // Check if we have a correct word
+  
                     //
+                    // Check if we have a correct word
                     let wordString = guessArr.join('');
-                    console.log(words.includes(wordString));
+            
                     if(words.includes(wordString)) 
                     {
                         correctWord = checkValues(guessArr);
                         // set the next line + rest the index
-                        if(checkValues(guessArr) ) {
+                        if(correctWord ) {
                 
                             lock = true;
                             let msg = '';
@@ -240,14 +307,19 @@ for( let i = 0; i < btnPress.length; i++ ) {
 
                             document.getElementById(`count`).innerHTML = msg;
                             toggleModal('modCorrect');
-
+                        
+                        // NOT a correct word
                         } else {
+
+                            // check if we are in final row
                             if( line == 5 ) {
                                 lock = true;
-                                alert('Ohi on.');
+                                toggleModal('modLose');
+                            
+                            // Not final row
                             } else {
                                 line++;
-                                index = 0;
+                                index = 0;      
                             }
                         }
 
@@ -258,7 +330,7 @@ for( let i = 0; i < btnPress.length; i++ ) {
                 }
             
             //
-            // Any of Letter buttons pressed
+            // if Any of Letter buttons pressed
             } else {
 
                 // check if still letter left 
