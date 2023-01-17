@@ -1,21 +1,19 @@
 /**
  * SANA-ARVAIN 
  * learning javascript, yeah!
+ * (C) Mikko Oikarinen 2023
+ * Use it if you want license
  */
 
-/**
+/*
  * TODO
- * - style the keyboard bss the answers -OK
- * - get random word - OK
- * - check if there is exist such a word - OK
- * - !!! get more extensive word list
- *      https://api.finto.fi/
- *      https://finto.fi/ysa/fi/
- * - replace alert boxes with modal windows
- *      - it's not words
- *      - type all the letters
- *      - correct answer
- */
+ * - Game lose modal
+ * - Animations for boxes
+ * - imporove styling
+ * - improve won game modal
+ * - copyright/sources 
+ * - possible re-factoring
+*/
 
 // SET UP THE START
 
