@@ -11,76 +11,87 @@
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Montserrat&display=swap" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="reset.css" />  
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="files/reset.css" />  
+    <link rel="stylesheet" href="files/style.css" />
 
-    <script type="text/javascript" src="words.js"></script> 
+    <script type="text/javascript" src="files/words.js"></script> 
 
   </head>
   <body>
 
-    <div id="header">
+    <!-- wrap up.. -->
+    <div id="wrapper">
 
-        <h1>sana-arvain</h1>
-        
-        <div class="nav">
-            <span class="faq">???</span>
+        <!-- show header -->
+
+        <div id="header">
+
+            <h1>sana-arvain</h1>
+            
+            <div class="nav">
+                <span class="faq">???</span>
+            </div>
+    
         </div>
 
-    </div>
-
-    <div id="container-words">
+        <!--container for words guesses -->
     
-        <ul class="guess-word">
-            <li class="guess-letter" id="l0--0"></li>
-            <li class="guess-letter" id="l0--1"></li>
-            <li class="guess-letter" id="l0--2"</li>
-            <li class="guess-letter" id="l0--3"></li>
-            <li class="guess-letter" id="l0--4"></li>
-        </ul>
-
-        <ul class="guess-word">
-            <li class="guess-letter" id="l1--0"></li>
-            <li class="guess-letter" id="l1--1"></li>
-            <li class="guess-letter" id="l1--2"</li>
-            <li class="guess-letter" id="l1--3"></li>
-            <li class="guess-letter" id="l1--4"></li>
-        </ul>
-
-        <ul class="guess-word">
-            <li class="guess-letter" id="l2--0"></li>
-            <li class="guess-letter" id="l2--1"></li>
-            <li class="guess-letter" id="l2--2"</li>
-            <li class="guess-letter" id="l2--3"></li>
-            <li class="guess-letter" id="l2--4"></li>
-        </ul>
-
-        <ul class="guess-word">
-            <li class="guess-letter" id="l3--0"></li>
-            <li class="guess-letter" id="l3--1"></li>
-            <li class="guess-letter" id="l3--2"</li>
-            <li class="guess-letter" id="l3--3"></li>
-            <li class="guess-letter" id="l3--4"></li>
-        </ul>
-
-        <ul class="guess-word">
-            <li class="guess-letter" id="l4--0"></li>
-            <li class="guess-letter" id="l4--1"></li>
-            <li class="guess-letter" id="l4--2"</li>
-            <li class="guess-letter" id="l4--3"></li>
-            <li class="guess-letter" id="l4--4"></li>
-        </ul>
+        <div id="container-words">
+        
+            <ul class="guess-word">
+                <li class="guess-letter" id="l0--0"></li>
+                <li class="guess-letter" id="l0--1"></li>
+                <li class="guess-letter" id="l0--2"</li>
+                <li class="guess-letter" id="l0--3"></li>
+                <li class="guess-letter" id="l0--4"></li>
+            </ul>
+    
+            <ul class="guess-word">
+                <li class="guess-letter" id="l1--0"></li>
+                <li class="guess-letter" id="l1--1"></li>
+                <li class="guess-letter" id="l1--2"</li>
+                <li class="guess-letter" id="l1--3"></li>
+                <li class="guess-letter" id="l1--4"></li>
+            </ul>
+    
+            <ul class="guess-word">
+                <li class="guess-letter" id="l2--0"></li>
+                <li class="guess-letter" id="l2--1"></li>
+                <li class="guess-letter" id="l2--2"</li>
+                <li class="guess-letter" id="l2--3"></li>
+                <li class="guess-letter" id="l2--4"></li>
+            </ul>
+    
+            <ul class="guess-word">
+                <li class="guess-letter" id="l3--0"></li>
+                <li class="guess-letter" id="l3--1"></li>
+                <li class="guess-letter" id="l3--2"</li>
+                <li class="guess-letter" id="l3--3"></li>
+                <li class="guess-letter" id="l3--4"></li>
+            </ul>
+    
+            <ul class="guess-word">
+                <li class="guess-letter" id="l4--0"></li>
+                <li class="guess-letter" id="l4--1"></li>
+                <li class="guess-letter" id="l4--2"</li>
+                <li class="guess-letter" id="l4--3"></li>
+                <li class="guess-letter" id="l4--4"></li>
+            </ul>
+    
+            
+            <ul class="guess-word">
+                <li class="guess-letter" id="l5--0"></li>
+                <li class="guess-letter" id="l5--1"></li>
+                <li class="guess-letter" id="l5--2"</li>
+                <li class="guess-letter" id="l5--3"></li>
+                <li class="guess-letter" id="l5--4"></li>
+            </ul>
+    
+        </div>
 
         
-        <ul class="guess-word">
-            <li class="guess-letter" id="l5--0"></li>
-            <li class="guess-letter" id="l5--1"></li>
-            <li class="guess-letter" id="l5--2"</li>
-            <li class="guess-letter" id="l5--3"></li>
-            <li class="guess-letter" id="l5--4"></li>
-        </ul>
 
-    </div>
+
 
     <!-- Show New Game button -->
     <div class="wrap hidden" id="new--game">
@@ -192,9 +203,10 @@
      
      <div class="overlay hidden"></div>
 
-
+    <!-- end of wrapper-->
+    </div>
       <!-- end of modals -->
 
-    <script src="script.js"></script>
+    <script src="files/script.js"></script>
   </body>
 </html>
