@@ -18,6 +18,8 @@
 // SET UP THE START
 
 // get the Buttons
+const btnCloseModInfo = document.getElementById('modInfoClose');
+const btnOpenInfo = document.querySelector('.faq');
 const btnPress = document.querySelectorAll('.letter');
 const btnCloseModShort = document.getElementById('modShortClose');
 const btnCloseModNotword = document.getElementById('modNotwordClose');
@@ -81,6 +83,17 @@ toggleModal = function( modalName ) {
     document.getElementById(modalName).classList.toggle('hidden');
     document.querySelector('.overlay').classList.toggle('hidden');
 }
+
+// MODAL INFO
+btnCloseModInfo.addEventListener('click', function() {
+    document.getElementById('modInfo').classList.add('hidden');
+    document.querySelector('.overlay').classList.add('hidden');
+});
+
+btnOpenInfo.addEventListener('click', function() {
+    document.getElementById('modInfo').classList.remove('hidden');
+    document.querySelector('.overlay').classList.remove('hidden');
+});
 
 // MODAL - word is too short
 closeModalShort = function() {

@@ -1,6 +1,6 @@
 
 body {
-    background: #ccc5b9;
+    background: #F8F6F6;
     font-family: 'Kanit', sans-serif;
 }
 
@@ -14,23 +14,75 @@ h1 {
     padding: 30px;
     text-align: center;
     color:#333;
-    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+p {
+    font-size: smaller;
+    font-weight: normal;
+    font-family: 'Montserrat', sans-serif;
+}
+#header {
+    margin: 0 auto;
+    width: 25rem;
+    border-bottom: 1px solid #E2E0E0;
 }
 
+.nav {
+    width: 100%;
+    text-align: right;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.faq {
+    color:#333;
+    cursor: hand;
+}
+
+.faq:hover {
+    color: #FFC300;
+    cursor: pointer;
+}
 /*
     containers
 */
+
 #container-words {
-    width: 480px;
+    width: 25rem;
     margin: 0 auto;
     text-align: center;
 }
 
-#container-keyboard {
-    width: 650px;
-    margin: 150px auto 0;
-    text-align: center;
+
+/*
+    flex box for guessed words
+*/
+
+.guess-word {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin: 10px 0;
 }
+
+.guess-letter {
+    background: #fff;
+    padding: 0;
+    width: 4rem;
+    height: 4rem;
+    margin-top: 5px;
+    line-height: 4rem;
+    color: #444;
+    font-weight: bold;
+    font-size: 3rem;
+    text-align: center;
+    border: 1px solid #E2E0E0;
+    border-radius: 5px;
+}
+
+/*
+    New game button
+*/
 
 .wrap {
     width: 200px;
@@ -55,34 +107,20 @@ h1 {
 	background-color:#5cbf2a;
 }
 
-/*
-    flex box for guessed words
-*/
-.guess-word {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    margin: 10px 0;
-}
-
-.guess-letter {
-    background: #fff;
-    padding: 0px;
-    width: 80px;
-    height: 80px;
-    margin-top: 10px;
-    line-height: 80px;
-    color: #444;
-    font-weight: bold;
-    font-size: 4em;
-    text-align: center;
-}
-
-
 
 /* 
     Keyboard Styles 
 */
+
+#container-keyboard {
+    width: 32rem; /* 32*/
+    margin: 100px auto 0;
+    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
 
 #letterBox {
     margin-top: 100px;
@@ -91,15 +129,14 @@ h1 {
 
 .letter {
     float: left;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
     font-size: 2em;
     background-color: #fff;
-    margin: 2px 1px;
+    margin: 2px 2px;
     padding: 0.1em;
     text-align: center;
-    cursor: hand;
 }
 
 .letter:hover {
@@ -109,9 +146,9 @@ h1 {
 
 .hiddenLetter {
     float: left;
-    width: 50px;
-    height: 50px;
-    margin: 2px 1px;
+    width: 2rem;
+    height: 2rem;
+    margin: 2px 0;
     font-size: 2em;
     padding: 0.1em;
 }
@@ -152,20 +189,40 @@ h1 {
 
  .modal {
     position: absolute;
-    top: 40%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 40%;
     background-color: white;
-    padding: 2rem 0;
+    padding: 2rem 1rem;
     border-radius: 5px;
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
     z-index: 10;
     text-align: center;
-    font-size: 1.5em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
+
+.modal h3 {
+    text-transform: uppercase;
+    margin: 10px 0 20px;
+}
+
+.modal p, ul {
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 10px 0;
+    text-align: left;
+}
+.modal .info {
+    margin-top: 10px;
+    border-top: 1px solid #E2E0E0;
+    
+}
+.modal .info p {
+    font-size: 0.8rem;
+}
   
-  .overlay {
+.overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -174,5 +231,5 @@ h1 {
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(3px);
     z-index: 5;
-  }
+}
   

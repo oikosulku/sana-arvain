@@ -8,20 +8,29 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Montserrat&display=swap" rel="stylesheet">
+
 
     <link rel="stylesheet" href="reset.css" />  
     <link rel="stylesheet" href="style.css" />
 
-    <script type="text/javascript" src="/words.js"></script> 
+    <script type="text/javascript" src="words.js"></script> 
 
   </head>
   <body>
 
+    <div id="header">
+
+        <h1>sana-arvain</h1>
+        
+        <div class="nav">
+            <span class="faq">???</span>
+        </div>
+
+    </div>
+
     <div id="container-words">
     
-        <h1>Sana-arvain</h1>
-        
         <ul class="guess-word">
             <li class="guess-letter" id="l0--0"></li>
             <li class="guess-letter" id="l0--1"></li>
@@ -129,6 +138,28 @@
     <!-- end of keyboard -->
 
     <!--- modal windows -->
+    <div class="modal hidden" id="modInfo">
+        <button class="close-modal" id="modInfoClose">&times;</button>
+        <h3>Sana-Arvain</h3>
+        <p>Arvaa oikea sana kuudelle arvauksella. Käytä sivustolla näkyvää näppäimistöä.</p>
+        <p>Jos arvaamasi sanan kirjaimen laatikko vihreä, niin kirjain on oikein.</p>
+        <p>Jos arvaamasi sanan kirjaimen laatikko vihreä, niin kirjain on oikein.</p>
+        <p>Jos laatikko on oranssi, kirjain on sanassa, mutta väärässä paikassa.</p>
+        <p>Jos harmaa kirjainta ei ole sanassa.</p>
+        <p>Arvattavan sanan pitää olla oikea sana.</p>
+        <p>Poista kirjain &#x2B05; </p>
+        <p>Klikkaa enter &#9166; kun olet kirjoittanut sanan</p>
+
+        <div class="info">
+            <p>Sana-arvain on version suositusta <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> pelistä. Jonka virallinen suomi version löytyy <a href="https://wordle.global/fi">wordle.global/fi</a></p>
+            <p>Löydä koodi Git Hubista: <a href="https://github.com/oikosulku/sana-arvain">GitHub</a></p>
+            <p>Sanaston lähde: <a href="https://kaino.kotus.fi/sanat/nykysuomi/">kaino.kotus.fi</a></p>
+            <p>Credits to Josh Wardle (original Wordle creator)</p>
+            <p>Tämä versio on tehty koodausharjoituksena</p>
+        </div>
+    </div>
+
+
 
     <div class="modal hidden" id="modShort">
         <button class="close-modal" id="modShortClose">&times;</button>
